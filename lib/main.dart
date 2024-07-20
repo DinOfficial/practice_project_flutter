@@ -9,156 +9,201 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Practice Projects',
-      home: ModuleSeven(),
+      home: AppBarWidget(),
     );
   }
 }
 
-class ModuleSeven extends StatefulWidget {
-  @override
-  State<ModuleSeven> createState() => _ModuleSevenState();
-}
+class AppBarWidget extends StatelessWidget {
+  const AppBarWidget({super.key});
 
-class _ModuleSevenState extends State<ModuleSeven> {
-  // const ModuleSeven({super.key});
-  List<String> FriendList = [
-    'rafik',
-    'karim',
-    'baccu',
-    'safat',
-    'habib',
-    'rayhan',
-    'alam'
-  ];
+  mySnackBar(context, msg) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('App Bar'),
-      ),
-      // body: ListView.separated(
-      //   itemBuilder: (context, index) => ListTile(
-      //     title: Text(FriendList[index]),
-      //     subtitle: Text('school friend'),
-      //     leading: Text((index + 1).toString()),
-      //     trailing: const Icon(Icons.add),
-      //     onTap: () => const AlertDialog(
-      //       title: Text('Alert'),
-      //     ),
-      //     titleTextStyle: TextStyle(color: Colors.amber, fontSize: 20)
-      //   ),
-      //   separatorBuilder: (context, index) => Divider(
-      //     color: Colors.grey.shade50,
-      //   ),
-      //   itemCount: FriendList.length,
-      // ));
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: 100,
-              width: 100,
-              // color: Colors.blue.shade400,
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(8),
-              child: Text('Container'),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: Colors.blue.shade400,
-                  border: Border.all(color: Colors.grey, width: 5),
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: AssetImage('assets/Images/image.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.4),
-                        offset: Offset(1, 2),
-                        spreadRadius: 5,
-                        blurRadius: 7)
-                  ]),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 100,
-                width: 100,
-                color: Colors.blue.shade400,
-                padding: EdgeInsets.all(10),
-                child: Text('Container'),
-                alignment: Alignment.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: Text('Click Me'),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (contex) {
-                        return AlertDialog(
-                          title: Text('Dialog'),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text('Sample Text'),
-                              Text('Sample Text'),
-                              Text('Sample Text'),
-                            ],
-                          ),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('Cencel')),
-                            TextButton(onPressed: () {}, child: Text('Okay')),
-                          ],
-                        );
-                      });
-                },
-                child: Text('Dialog')),
-            SizedBox(
-              height: 16,
-            ),
-            ElevatedButton(
+        title: const Text('App'),
+        // titleSpacing: 5,
+        titleTextStyle: const TextStyle(
+            color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
+        backgroundColor: Colors.blue,
+        centerTitle: false,
+        toolbarHeight: 80,
+        toolbarOpacity: 0.9,
+        elevation: 10,
+        actions: [
+          IconButton(
               onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (ctx) {
-                      return SizedBox(
-                        height: 400,
-                        width: double.infinity,
-                        child: Column(
-                          children: [
-                            Padding(padding: EdgeInsets.only(top: 20)),
-                            Text('Bottom Sheet'),
-                            Divider(),
-                            Text('Sheet Data'),
-                            Text('Sheet Data'),
-                            Text('Sheet Data'),
-                            Text('Sheet Data'),
-                          ],
-                        ),
-                      );
-                    });
-
+                mySnackBar(context, 'Notification Read');
               },
-              child: Text('Show Bottom Sheet'),
+              icon: const Icon(Icons.notifications_active,
+                  color: Colors.white, size: 30)),
+          IconButton(
+              onPressed: () {
+                mySnackBar(context, 'Search Complete');
+              },
+              icon: const Icon(Icons.search, color: Colors.white, size: 30)),
+          IconButton(
+              onPressed: () {
+                mySnackBar(context, 'User Not Found');
+              },
+              icon: const Icon(Icons.person, color: Colors.white, size: 30)),
+          IconButton(
+              onPressed: () {
+                mySnackBar(context, 'Setting is under constructions');
+              },
+              icon: const Icon(Icons.settings, color: Colors.white, size: 30))
+        ],
+      ),
+
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButton: FloatingActionButton(
+        elevation: 5,
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 30,
+        ),
+        onPressed: () {},
+        backgroundColor: Colors.blue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart), label: 'Shop'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
+      ),
+
+      drawer: Drawer(
+        backgroundColor: Colors.white,
+        child: ListView(
+          children: [
+            Center(child: DrawerHeader(
+              padding: EdgeInsets.zero,
+                child: UserAccountsDrawerHeader(
+                  accountEmail: Text("shdinofficial19@gmail.com", style: TextStyle(color: Colors.white)),
+                  accountName: Text("Din Islam"),
+                  currentAccountPicture: Image.asset('assets/Images/image.jpg'),
+                  currentAccountPictureSize: Size.infinite,
+                ))
             ),
+            // Divider()
+            ListTile(title: Text('Home'),  leading: Icon(Icons.home), onTap: (){},),
+            ListTile(title: Text('Contact'), leading: Icon(Icons.contact_emergency), onTap: (){},),
+            ListTile(title: Text('Profile'), leading: Icon(Icons.person), onTap: (){},),
+            ListTile(title: Text('Email'), leading: Icon(Icons.email), onTap: (){},),
+            ListTile(title: Text('Phone'), leading: Icon(Icons.phone), onTap: (){},)
           ],
         ),
       ),
+
+      body: FloatingActionButtonWidget() ,
     );
   }
+} //Details about AppBar , Floating Action Button, Bottom Navigator, Drawer
+
+class FloatingActionButtonWidget extends StatelessWidget {
+  const FloatingActionButtonWidget({super.key});
+
+  // MyAlerDialog(context){
+  //   return showDialog(
+  //       context: context,
+  //       barrierDismissible: false,
+  //       builder: (BuildContext context){
+  //         return AlertDialog(
+  //           title: Text('My Dialog'),
+  //           actions: [
+  //             TextButton(
+  //                 onPressed: (){
+  //                   Navigator.pop(context);
+  //                 },
+  //                 child: Text('Cencel')),
+  //             TextButton(
+  //                 onPressed: (){},
+  //                 child: Text('Okay')),
+  //
+  //           ],
+  //         );
+  //       }
+  //   );
+  // } //Simple Alert Dialog
+
+  @override
+  Widget build(BuildContext context) {
+
+    /* ********
+    AlertDialog
+    **********/
+
+    // return Center(
+    //   child: ElevatedButton(
+    //     child: Text('Click Me'),
+    //     onPressed: (){
+    //       MyAlerDialog(context);
+    //     },
+    //   ),
+    // ) ;
+
+    ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      minimumSize: Size(double.infinity, 60),
+      backgroundColor: Colors.blue,
+      textStyle: TextStyle(
+          color: Colors.black, fontWeight: FontWeight.w800, fontSize: 16),
+    );
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: 'First Name',
+              border: OutlineInputBorder(),
+              hintText: 'Write your First Name',
+            ),
+          ),
+        ), Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: 'Last Name',
+              border: OutlineInputBorder(),
+              hintText: 'Write your Last Name',
+            ),
+          ),
+        ), Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: 'Email Address',
+              border: OutlineInputBorder(),
+              hintText: 'Write your Email',
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: ElevatedButton(
+            onPressed: (){},
+            child: Text('Submit'),
+            style: buttonStyle,
+          ),
+        )
+      ],
+    );
+  }
+
 }
